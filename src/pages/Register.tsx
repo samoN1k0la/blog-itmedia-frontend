@@ -1,18 +1,31 @@
 import React, { useState } from 'react';
-import { Form, Button, Card } from 'react-bootstrap';
+import { Form, Button, Card, Alert } from 'react-bootstrap';
 
 const Register: React.FC = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [confirmPassword, setConfirmPassword] = useState<string>('');
+  const [error, setError] = useState<string>('');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (password !== confirmPassword) {
-      alert('Passwords do not match!');
+
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+    if (!passwordRegex.test(password)) {
+      setError(
+        'Password must be at least 8 characters long, contain one uppercase letter, one lowercase letter, one number, and one special character.'
+      );
       return;
     }
-    alert('Registering with: ' + email + " " + password);
+
+    if (password !== confirmPassword) {
+      setError('Passwords do not match!');
+      return;
+    }
+
+    setError('');
+    alert('Registering with: ' + email + ' ' + password);
   };
 
   return (
@@ -20,6 +33,7 @@ const Register: React.FC = () => {
       <Card.Body>
         <Card.Title>Register</Card.Title>
         <Form onSubmit={handleSubmit}>
+          {error && <Alert variant="danger">{error}</Alert>}
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
             <Form.Control
@@ -27,6 +41,7 @@ const Register: React.FC = () => {
               placeholder="Enter email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              required
             />
           </Form.Group>
 
@@ -37,6 +52,7 @@ const Register: React.FC = () => {
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              required
             />
           </Form.Group>
 
@@ -47,6 +63,7 @@ const Register: React.FC = () => {
               placeholder="Confirm Password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
+              required
             />
           </Form.Group>
 
