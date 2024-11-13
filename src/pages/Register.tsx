@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
-import { Form, Button, Card, Alert } from 'react-bootstrap';
+import { Form, Button, Card, Alert, Container } from 'react-bootstrap';
+import axios from 'axios';
+import './styles/Register.css';
 
 const Register: React.FC = () => {
+  const [username, setUsername] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [confirmPassword, setConfirmPassword] = useState<string>('');
   const [error, setError] = useState<string>('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
@@ -25,54 +28,89 @@ const Register: React.FC = () => {
     }
 
     setError('');
-    alert('Registering with: ' + email + ' ' + password);
+    
+    const requestBody = {
+      username: username,
+      email: email,
+      password: password,
+      role: 'author',
+    };
+
+    try {
+      const response = await axios.post('http://localhost:4000/auth/signup', requestBody);
+      alert("Registration successful! Check console for response.");
+      console.log(response.data);
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response) {
+        setError(error.response.data.message || 'Registration failed!');
+      } else {
+        setError('An error occurred. Please try again.');
+      }
+    }
   };
 
   return (
-    <Card>
-      <Card.Body>
-        <Card.Title>Register</Card.Title>
-        <Form onSubmit={handleSubmit}>
-          {error && <Alert variant="danger">{error}</Alert>}
-          <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label>Email address</Form.Label>
-            <Form.Control
-              type="email"
-              placeholder="Enter email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </Form.Group>
+    <Container className='register-container'>
+      <Card className='register-card'>
+        <Card.Body>
+          <h2 className='register-title'>Register</h2>
+          <Form onSubmit={handleSubmit}>
+            {error && <Alert variant="danger">{error}</Alert>}
 
-          <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Label>Password</Form.Label>
-            <Form.Control
-              type="password"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </Form.Group>
+            <Form.Group className="form-group" controlId="formBasicUsername">
+              <span className='form-label'>Username</span>
+              <Form.Control
+                type="text"
+                placeholder="Enter username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                required
+              />
+            </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formBasicConfirmPassword">
-            <Form.Label>Confirm Password</Form.Label>
-            <Form.Control
-              type="password"
-              placeholder="Confirm Password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              required
-            />
-          </Form.Group>
+            <Form.Group className="form-group" controlId="formBasicEmail">
+              <span className='form-label'>Email</span>
+              <Form.Control
+                type="email"
+                placeholder="Enter email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </Form.Group>
 
-          <Button variant="primary" type="submit">
-            Register
-          </Button>
-        </Form>
-      </Card.Body>
-    </Card>
+            <Form.Group className="form-group" controlId="formBasicPassword">
+              <span className='form-label'>Password</span>
+              <Form.Control
+                type="password"
+                placeholder="Enter password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </Form.Group>
+
+            <Form.Group className="form-group" controlId="formBasicConfirmPassword">
+              <span className='form-label2'>Confirm Password</span>
+              <Form.Control
+                type="password"
+                placeholder="Confirm Password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                required
+              />
+            </Form.Group>
+
+            <Button variant="primary" type="submit" className='register-button'>
+              Register
+            </Button>
+          </Form>
+          <div className='register-footer'>
+            <small>Already have an account? <a href="/login">Login</a></small>
+          </div>
+        </Card.Body>
+      </Card>
+    </Container>
   );
 };
 

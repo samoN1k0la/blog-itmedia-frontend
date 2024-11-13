@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
-import { Form, Button, Card, Alert } from 'react-bootstrap';
+import { Form, Button, Card, Alert, Container } from 'react-bootstrap';
+import axios from 'axios';
+import "./styles/Login.css";
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [error, setError] = useState<string>('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
@@ -19,43 +21,66 @@ const Login: React.FC = () => {
     }
 
     setError('');
-    alert('Logging in with: ' + email + ' ' + password);
+    
+    const requestBody = {
+      email: email,
+      password: password,
+    };
+
+    try {
+      const response = await axios.post('http://localhost:4000/auth/login', requestBody);
+      alert("Login successful! Check console for JWT token");
+      console.log(response.data.access_token);
+    } catch (error) {
+      if(axios.isAxiosError(error) && error.response) {
+        setError(error.response.data.message || 'Login failed!');
+      } else {
+        setError('An error occured. Please try again.');
+      }
+    }
   };
 
   return (
-    <Card>
-      <Card.Body>
-        <Card.Title>Login</Card.Title>
-        <Form onSubmit={handleSubmit}>
+    <Container className='login-container'>
+      <Card className='login-card'>
+        <Card.Body>
+          <h2 className='login-title'>Login</h2>
           {error && <Alert variant="danger">{error}</Alert>}
-          <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label>Email address</Form.Label>
-            <Form.Control
-              type="email"
-              placeholder="Enter email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </Form.Group>
+          <Form onSubmit={handleSubmit}>
+            <Form.Group controlId="formBasicEmail" className='form-group'>
+              <span className='form-label'>Email</span>
+              <Form.Control
+                type="email"
+                placeholder="Enter email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className='form-control'
+                required
+              />
+            </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Label>Password</Form.Label>
-            <Form.Control
-              type="password"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </Form.Group>
+            <Form.Group controlId="formBasicPassword" className='form-group'>
+              <span className='form-label'>Password</span>
+              <Form.Control
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className='form-control'
+                required
+              />
+            </Form.Group>
 
-          <Button variant="primary" type="submit">
-            Login
-          </Button>
-        </Form>
-      </Card.Body>
-    </Card>
+            <Button variant="primary" type="submit" className='login-button'>
+              Login
+            </Button>
+          </Form>
+          <div className='login-footer'>
+            <small>Don't have an account? <a href="/register">Register</a></small>
+          </div>
+        </Card.Body>
+      </Card>
+    </Container>
   );
 };
 
