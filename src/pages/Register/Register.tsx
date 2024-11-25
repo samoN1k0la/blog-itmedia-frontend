@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Button, Card, Alert, Container } from 'react-bootstrap';
 import axios from 'axios';
-import './styles/Register.css';
+import './Register.css';
 
 const Register: React.FC = () => {
   const [username, setUsername] = useState<string>('');

@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
 import { Form, Button, Card, Alert, Container } from 'react-bootstrap';
 import axios from 'axios';
-import "./styles/Login.css";
+import "./Login.css";
+import { useNavigate } from 'react-router-dom';
+import { getRoleFromToken } from '../../protected/ProtectedRoute';
+
 
 const Login: React.FC = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [error, setError] = useState<string>('');
@@ -29,8 +33,18 @@ const Login: React.FC = () => {
 
     try {
       const response = await axios.post('http://localhost:4000/auth/login', requestBody);
-      alert("Login successful! Check console for JWT token");
-      console.log(response.data.access_token);
+      const token = response.data.access_token;
+      localStorage.setItem('jwt', token);
+      
+      const role = getRoleFromToken(token);
+      if (role === 'author') {
+        navigate('/author');
+      } else if (role === 'admin') {
+        navigate('/admin');
+      } else {
+        alert('An error occured. Please try again.');
+      }
+
     } catch (error) {
       if(axios.isAxiosError(error) && error.response) {
         setError(error.response.data.message || 'Login failed!');
