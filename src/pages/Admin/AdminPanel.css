@@ -1,0 +1,134 @@
+/* General Layout */
+.admin-panel-container {
+    display: flex;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+    background-color: #f4f5f7;
+}
+  
+/* Sidebar */
+.sidebar {
+    width: 250px;
+    background-color: #2c3e50;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar-header {
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+    padding: 1rem 0;
+    border-bottom: 1px solid #34495e;
+}
+
+.sidebar-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-menu li {
+    padding: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    font-size: 1rem;
+}
+
+.sidebar-menu li:hover {
+    background-color: #34495e;
+}
+
+.sidebar-menu li.active {
+    background-color: #1abc9c;
+    color: white;
+    font-weight: bold;
+    border-left: 5px solid #16a085;
+    padding-left: 0.8rem; /* Align text with inactive items */
+}
+  
+/* Main Content */
+.main-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: #f9f9f9;
+    overflow-y: auto;
+}
+
+/* Account Info */
+.account-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: #ecf0f1;
+    border-bottom: 1px solid #bdc3c7;
+}
+
+.account-info-left {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #2c3e50;
+}
+
+.account-info-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.profile-picture {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #bdc3c7;
+}
+
+/* Content Area */
+.content-area {
+    padding: 2rem;
+    background-color: #f9f9f9;
+}
+
+.content-area h1 {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: #2c3e50;
+}
+
+.content-area p {
+    font-size: 1rem;
+    color: #7f8c8d;
+}
+
+.content-area ul {
+    margin: 1rem 0;
+    padding-left: 1.5rem;
+}
+
+.content-area li {
+    margin: 0.5rem 0;
+    font-size: 1rem;
+    color: #34495e;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 200px;
+    }
+    .sidebar-header {
+        font-size: 1.2rem;
+    }
+    .sidebar-menu li {
+        font-size: 0.9rem;
+    }
+    .main-content {
+        padding: 1rem;
+    }
+}

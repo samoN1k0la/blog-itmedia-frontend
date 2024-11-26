@@ -4,8 +4,8 @@ import ProtectedRoute from './protected/ProtectedRoute';
 import Home from './pages/Home/Home';
 import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
-import AuthorPanel from './pages/panels/Author/AuthorPanel';
-import AdminPanel from './pages/panels/Admin/AdminPanel';
+import AuthorPanel from './pages/Author/AuthorPanel';
+import AdminPanel from './pages/Admin/AdminPanel';
 
 const App: React.FC = () => {
   return (
