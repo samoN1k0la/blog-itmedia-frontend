@@ -117,6 +117,50 @@
     color: #34495e;
 }
 
+.author-management p {
+    margin-bottom: 4rem;
+}
+
+/* Author Table */
+.author-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    font-size: 1rem;
+    color: #34495e;
+    background-color: #ffffff;
+    border: 1px solid #bdc3c7;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.author-table thead {
+    background-color: #2c3e50;
+    color: white;
+}
+
+.author-table th,
+.author-table td {
+    padding: 0.8rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid #ecf0f1;
+}
+
+.author-table th {
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.05rem;
+}
+
+.author-table tbody tr:hover {
+    background-color: #f2f2f2;
+}
+
+.author-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
 /* Media Queries for Responsiveness */
 @media (max-width: 768px) {
     .sidebar {
