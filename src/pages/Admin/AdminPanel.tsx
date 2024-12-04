@@ -1,91 +1,47 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Dashboard from "./Dashboard/Dashboard";
+import Authors from "./Authors/Authors";
+import Moderation from "./Moderation/Moderation";
+import Reports from "./Reports/Reports";
+import Settings from "./Settings/Settings";
 import "./AdminPanel.css";
 
-const AdminPanel: React.FC = () => {
-  const [selectedSection, setSelectedSection] = useState<string>("Dashboard");
+interface AdminPanelProps {
+  defaultSection?: string;
+}
 
-  // Render content dynamically based on the selected section
+const AdminPanel: React.FC<AdminPanelProps> = ({ defaultSection = "Dashboard" }) => {
+  const [selectedSection, setSelectedSection] = useState<string>(defaultSection);
+  const navigate = useNavigate();
+
   const renderContent = () => {
     switch (selectedSection) {
       case "Dashboard":
         return (
-          <div>
-            <h1>Dashboard</h1>
-            <p>Overview of authors, posts, and flagged content.</p>
-            <ul>
-              <li>Total Authors: 120</li>
-              <li>Posts Published Today: 45</li>
-              <li>Flagged Posts: 3</li>
-            </ul>
-          </div>
+          <Dashboard />
         );
         case "Authors":
           return (
-            <div className="author-management">
-              <h1>Author Management</h1>
-              <p>View and manage all authors on the platform.</p>
-              <table className="author-table">
-                <thead>
-                  <tr>
-                    <th>Author Name</th>
-                    <th>Posts</th>
-                    <th>Status</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Author A</td>
-                    <td>10</td>
-                    <td>Active</td>
-                  </tr>
-                  <tr>
-                    <td>Author B</td>
-                    <td>5</td>
-                    <td>Suspended</td>
-                  </tr>
-                  <tr>
-                    <td>Author C</td>
-                    <td>20</td>
-                    <td>Active</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+            <Authors />
           );        
       case "Moderation":
         return (
-          <div>
-            <h1>Content Moderation</h1>
-            <p>Approve, reject, or edit submitted posts.</p>
-            <ul>
-              <li>Post 1: *Flagged for inappropriate content*</li>
-              <li>Post 2: *Awaiting approval*</li>
-              <li>Post 3: *Approved*</li>
-            </ul>
-          </div>
+          <Moderation />
         );
       case "Reports":
         return (
-          <div>
-            <h1>Reports and Feedback</h1>
-            <p>Manage user-reported content and feedback.</p>
-            <ul>
-              <li>Report 1: *Spam in comments*</li>
-              <li>Report 2: *Plagiarism detected*</li>
-            </ul>
-          </div>
+          <Reports />
         );
       case "Settings":
         return (
-          <div>
-            <h1>Platform Settings</h1>
-            <p>Manage platform-wide configurations and guidelines.</p>
-          </div>
+          <Settings />
         );
       default:
         return <div><h1>Welcome</h1><p>Select a section from the sidebar.</p></div>;
     }
   };
+
 
   return (
     <div className="admin-panel-container">
@@ -98,7 +54,11 @@ const AdminPanel: React.FC = () => {
               <li
                 key={item}
                 className={selectedSection === item ? "active" : ""}
-                onClick={() => setSelectedSection(item)}
+                onClick={() => {
+                    setSelectedSection(item); 
+                    navigate(`/admin/${item.toLowerCase()}`);
+                  }
+                }
               >
                 {item}
               </li>

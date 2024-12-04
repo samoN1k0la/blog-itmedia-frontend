@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Form, Button, Card, Alert, Container } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './Register.css';
 
@@ -9,6 +10,7 @@ const Register: React.FC = () => {
   const [password, setPassword] = useState<string>('');
   const [confirmPassword, setConfirmPassword] = useState<string>('');
   const [error, setError] = useState<string>('');
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -37,9 +39,11 @@ const Register: React.FC = () => {
     };
 
     try {
-      const response = await axios.post('http://localhost:4000/auth/signup', requestBody);
-      alert("Registration successful! Check console for response.");
+      const registerUrl = `${process.env.REACT_APP_BACKEND_URL}:${process.env.REACT_APP_BACKEND_PORT}/auth/signup`;
+      const response = await axios.post(registerUrl, requestBody);
+      alert("Registration successful! Redirecting to login...");
       console.log(response.data);
+      navigate('/login');
     } catch (error) {
       if (axios.isAxiosError(error) && error.response) {
         setError(error.response.data.message || 'Registration failed!');

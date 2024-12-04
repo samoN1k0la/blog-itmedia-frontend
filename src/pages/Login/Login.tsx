@@ -32,7 +32,8 @@ const Login: React.FC = () => {
     };
 
     try {
-      const response = await axios.post('http://localhost:4000/auth/login', requestBody);
+      const loginUrl = `${process.env.REACT_APP_BACKEND_URL}:${process.env.REACT_APP_BACKEND_PORT}/auth/login`;
+      const response = await axios.post(loginUrl, requestBody);
       const token = response.data.access_token;
       localStorage.setItem('jwt', token);
       
