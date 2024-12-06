@@ -1,27 +1,54 @@
-.author-panel {
+/* Overall container */
+.author-panel-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
-    background-color: #f7f9fc;
-    font-family: Arial, sans-serif;
+    height: 100vh;
+    background: linear-gradient(135deg, #001f3f, #1abc9c);
+    color: #ffffff;
+    font-family: 'Arial', sans-serif;
 }
 
+/* Content box */
 .author-panel-content {
     text-align: center;
-    background: #ffffff;
-    padding: 2rem;
+    padding: 1.5rem;
+    background: rgba(0, 31, 63, 0.85);
     border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    width: 70%;
+    max-width: 500px;
 }
 
-.author-panel-content h2 {
-    font-size: 1.8rem;
+/* Title styling */
+.author-panel-title {
+    font-size: 3.5rem;
     margin-bottom: 1rem;
-    color: #333;
+    color: #1abc9c;
+    font-weight: bold;
 }
 
-.author-panel-content p {
-    font-size: 1rem;
-    color: #555;
+/* Message styling */
+.author-panel-message {
+    font-size: 1.25rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Button styling */
+.author-panel-button {
+    display: inline-block;
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: #001f3f;
+    background: #1abc9c;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.author-panel-button:hover {
+    background: #008ba3;
+    transform: scale(1.05);
 }
