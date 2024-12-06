@@ -116,12 +116,12 @@
     font-size: 1rem;
     color: #34495e;
 }
-
+/*
 .author-management p {
     margin-bottom: 4rem;
 }
 
-/* Author Table */
+
 .author-table {
     width: 100%;
     border-collapse: collapse;
@@ -159,7 +159,7 @@
 
 .author-table tbody tr:last-child td {
     border-bottom: none;
-}
+}*/
 
 /* Media Queries for Responsiveness */
 @media (max-width: 768px) {

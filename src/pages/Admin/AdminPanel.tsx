@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Dashboard from "./Dashboard/Dashboard";
-import Authors from "./Authors/Authors";
+import Users from "./Users/Users";
 import Moderation from "./Moderation/Moderation";
 import Reports from "./Reports/Reports";
 import Settings from "./Settings/Settings";
@@ -23,7 +23,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ defaultSection = "Dashboard" })
         );
         case "Authors":
           return (
-            <Authors />
+            <Users />
           );        
       case "Moderation":
         return (

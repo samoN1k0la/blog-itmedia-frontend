@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-import ProtectedRoute from './protected/ProtectedRoute';
-import Home from './pages/Home/Home';
+import ProtectedRoute, { ProtectedHome } from './protected/ProtectedRoute';
+import NotFound from './pages/NotFound/NotFound';
 import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
 import AuthorPanel from './pages/Author/AuthorPanel';
@@ -11,7 +11,7 @@ const App: React.FC = () => {
   return (
     <Router>
       <Routes>
-      <Route path="/" element={<Home />} />
+      <Route path="/" element={<ProtectedHome />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route
@@ -62,7 +62,7 @@ const App: React.FC = () => {
             </ProtectedRoute>
           }
         />
-        <Route path="*" element={<Home />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
   );

@@ -42,4 +42,30 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ allowedRoles, children 
     }
 };
 
+const ProtectedHome: React.FC = () => {
+    const token = localStorage.getItem('jwt');
+    const roles = ['author', 'admin'];
+
+    if (!token) {
+        return <Navigate to="/login" />;
+    }
+
+    try {
+        const role = getRoleFromToken(token);
+        if (!role || !roles.includes(role)) {
+            return <Navigate to="/login" />;
+        }
+        if (role === 'author') {
+            return <Navigate to="/author" />;
+        } else if (role === 'admin') {
+            return <Navigate to="/admin" />;
+        }
+        return <Navigate to="/login" />;
+    } catch (error) {
+        console.error('Error decoding token:', error);
+        return <Navigate to="/login" />;
+    }
+}
+
 export default ProtectedRoute;
+export { ProtectedHome };
