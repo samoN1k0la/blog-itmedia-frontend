@@ -43,7 +43,7 @@
     border-color: #1abc9c;
 }
 
-/* user Table Updates */
+/* User Table */
 .user-table {
     width: 100%;
     border-collapse: collapse;
@@ -73,6 +73,31 @@
 
 .user-table th {
     font-weight: bold;
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+    padding-right: 20px;
+    transition: color 0.3s;
+}
+
+.user-table th:hover {
+    color: #1abc9c;
+}
+
+.user-table th::after {
+    content: "";
+    position: absolute;
+    right: 10px;
+    font-size: 0.8rem;
+    color: #7f8c8d;
+}
+
+.user-table th.sorted-asc::after {
+    content: "↑";
+}
+
+.user-table th.sorted-desc::after {
+    content: "↓";
 }
 
 .user-table tbody tr:nth-child(even) {
