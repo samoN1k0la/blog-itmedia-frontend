@@ -1,67 +1,94 @@
+/* Overall container */
 .register-container {
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-color: #f7f9fc;
+    background: linear-gradient(135deg, #001f3f, #1abc9c);
 }
-  
+
+/* Card styling */
 .register-card {
     max-width: 400px;
     width: 100%;
     padding: 2rem;
+    padding-right: 3rem;
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    background-color: rgba(0, 31, 63, 0.85);
 }
 
-.form-group {
-    width: 80%;
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 1rem;
-    margin-inline: auto;
-}
-
-.form-label2 {
-    font-size: 1rem;
-    margin-right: -32px;
-}
-
+/* Title styling */
 .register-title {
-    text-align: center;
-    margin-bottom: 1.5rem;
+    font-size: 3.5rem;
+    margin-top: 0;
+    margin-bottom: 2rem;
+    color: #1abc9c;
     font-weight: bold;
+    text-align: center;
 }
 
+/* Form label */
+.form-label {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    display: block;
+    color: #ffffff;
+}
+
+/* Form group styling */
+.form-group {
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+/* Input field styling */
 .form-control {
-    border-radius: 5px 5px 0px 0px;
-    padding: 5px;
-    width: 220px;
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 1rem;
+    border-radius: 0;
     border: none;
     background-color: transparent;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid #ffffff;
+    font-size: 1rem;
+    color: #ffffff;
 }
 
+/* Button styling */
 .register-button {
-    width: 80%;
-    border-radius: 5px;
-    padding: 8px;
-    margin-inline: auto;
-    font-weight: bold;
+    width: 100%;
+    margin-top: 2rem;
+    padding: 10px;
+    background-color: #1abc9c;
+    color: #fff;
     border: none;
-    border: 1px solid gray;
-    display: flex;
-    justify-content: center;
-    margin-top: 32px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease;
 }
 
+.register-button:hover {
+    background-color: #16a085;
+}
+
+/* Error message styling */
+.error-message {
+    color: #ff4d4d;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+/* Footer link styling */
 .register-footer {
     text-align: center;
     margin-top: 1rem;
+    color: white;
 }
 
 .register-footer a {
-    color: #007bff;
+    color: #1abc9c;
     text-decoration: none;
 }
 

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Form, Button, Card, Alert, Container } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './Register.css';
@@ -54,67 +53,69 @@ const Register: React.FC = () => {
   };
 
   return (
-    <Container className='register-container'>
-      <Card className='register-card'>
-        <Card.Body>
-          <h2 className='register-title'>Register</h2>
-          <Form onSubmit={handleSubmit}>
-            {error && <Alert variant="danger">{error}</Alert>}
+    <div className="register-container">
+      <div className="register-card">
+        <h2 className="register-title">Register</h2>
+        <form onSubmit={handleSubmit}>
+          {error && <div className="error-message">{error}</div>}
 
-            <Form.Group className="form-group" controlId="formBasicUsername">
-              <span className='form-label'>Username</span>
-              <Form.Control
-                type="text"
-                placeholder="Enter username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                required
-              />
-            </Form.Group>
-
-            <Form.Group className="form-group" controlId="formBasicEmail">
-              <span className='form-label'>Email</span>
-              <Form.Control
-                type="email"
-                placeholder="Enter email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </Form.Group>
-
-            <Form.Group className="form-group" controlId="formBasicPassword">
-              <span className='form-label'>Password</span>
-              <Form.Control
-                type="password"
-                placeholder="Enter password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-            </Form.Group>
-
-            <Form.Group className="form-group" controlId="formBasicConfirmPassword">
-              <span className='form-label2'>Confirm Password</span>
-              <Form.Control
-                type="password"
-                placeholder="Confirm Password"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                required
-              />
-            </Form.Group>
-
-            <Button variant="primary" type="submit" className='register-button'>
-              Register
-            </Button>
-          </Form>
-          <div className='register-footer'>
-            <small>Already have an account? <a href="/login">Login</a></small>
+          <div className="form-group">
+            <span className="form-label">Username</span>
+            <input
+              type="text"
+              placeholder="Enter username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              className="form-control"
+              required
+            />
           </div>
-        </Card.Body>
-      </Card>
-    </Container>
+
+          <div className="form-group">
+            <span className="form-label">Email</span>
+            <input
+              type="email"
+              placeholder="Enter email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="form-control"
+              required
+            />
+          </div>
+
+          <div className="form-group">
+            <span className="form-label">Password</span>
+            <input
+              type="password"
+              placeholder="Enter password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="form-control"
+              required
+            />
+          </div>
+
+          <div className="form-group">
+            <span className="form-label">Confirm Password</span>
+            <input
+              type="password"
+              placeholder="Confirm password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              className="form-control"
+              required
+            />
+          </div>
+
+          <button type="submit" className="register-button">
+            Register
+          </button>
+        </form>
+        <div className="register-footer">
+          <small>Already have an account? <a href="/login">Login</a></small>
+        </div>
+      </div>
+    </div>
   );
 };
 

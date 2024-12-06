@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
-import { Form, Button, Card, Alert, Container } from 'react-bootstrap';
-import axios from 'axios';
-import "./Login.css";
+import './Login.css';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import { getRoleFromToken } from '../../protected/ProtectedRoute';
-
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
@@ -25,7 +23,7 @@ const Login: React.FC = () => {
     }
 
     setError('');
-    
+
     const requestBody = {
       email: email,
       password: password,
@@ -36,66 +34,66 @@ const Login: React.FC = () => {
       const response = await axios.post(loginUrl, requestBody);
       const token = response.data.access_token;
       localStorage.setItem('jwt', token);
-      
+
       const role = getRoleFromToken(token);
       if (role === 'author') {
         navigate('/author');
       } else if (role === 'admin') {
         navigate('/admin');
       } else {
-        alert('An error occured. Please try again.');
+        alert('An error occurred. Please try again.');
       }
 
     } catch (error) {
-      if(axios.isAxiosError(error) && error.response) {
+      if (axios.isAxiosError(error) && error.response) {
         setError(error.response.data.message || 'Login failed!');
       } else {
-        setError('An error occured. Please try again.');
+        setError('An error occurred. Please try again.');
       }
     }
   };
 
   return (
-    <Container className='login-container'>
-      <Card className='login-card'>
-        <Card.Body>
-          <h2 className='login-title'>Login</h2>
-          {error && <Alert variant="danger">{error}</Alert>}
-          <Form onSubmit={handleSubmit}>
-            <Form.Group controlId="formBasicEmail" className='form-group'>
-              <span className='form-label'>Email</span>
-              <Form.Control
-                type="email"
-                placeholder="Enter email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className='form-control'
-                required
-              />
-            </Form.Group>
-
-            <Form.Group controlId="formBasicPassword" className='form-group'>
-              <span className='form-label'>Password</span>
-              <Form.Control
-                type="password"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className='form-control'
-                required
-              />
-            </Form.Group>
-
-            <Button variant="primary" type="submit" className='login-button'>
-              Login
-            </Button>
-          </Form>
-          <div className='login-footer'>
-            <small>Don't have an account? <a href="/register">Register</a></small>
+    <div className="login-container">
+      <div className="login-card">
+        <h1 className="login-title">Login</h1>
+        {error && <div className="error-message">{error}</div>}
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label htmlFor="email" className="form-label">Email</label>
+            <input
+              type="email"
+              id="email"
+              placeholder="Enter email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="form-control"
+              required
+            />
           </div>
-        </Card.Body>
-      </Card>
-    </Container>
+
+          <div className="form-group">
+            <label htmlFor="password" className="form-label">Password</label>
+            <input
+              type="password"
+              id="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="form-control"
+              required
+            />
+          </div>
+
+          <button type="submit" className="login-button">Login</button>
+        </form>
+        <div className="login-footer">
+          <small>
+            Don't have an account? <a href="/register">Register</a>
+          </small>
+        </div>
+      </div>
+    </div>
   );
 };
 
