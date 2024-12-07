@@ -11,7 +11,7 @@ const Users: React.FC = () => {
     const [searchTerm, setSearchTerm] = useState("");
     const [statusFilter, setStatusFilter] = useState("All");
     const [authors, setAuthors] = useState<Author[]>([
-        { name: "Nikola Jovanović", posts: 10, status: "Active" },
+        { name: "Nikola Lukić", posts: 10, status: "Active" },
         { name: "Maja Petrović", posts: 5, status: "Suspended" },
         { name: "Aleksandar Marković", posts: 20, status: "Active" },
         { name: "Ivana Savić", posts: 15, status: "Suspended" },
@@ -60,12 +60,12 @@ const Users: React.FC = () => {
                     placeholder="Search by name..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="search-input"
+                    className="search-input-dark"
                 />
                 <select
                     value={statusFilter}
                     onChange={(e) => setStatusFilter(e.target.value)}
-                    className="filter-select"
+                    className="filter-select-dark"
                 >
                     <option value="All">All Statuses</option>
                     <option value="Active">Active</option>

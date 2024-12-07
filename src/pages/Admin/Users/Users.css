@@ -10,14 +10,15 @@
     margin-bottom: 1rem;
 }
 
-.search-input {
+.search-input-dark {
     flex: 1;
     max-width: 300px;
     padding: 0.5rem 1rem;
-    border: 1px solid #bdc3c7;
+    border: 1px solid #1abc9c;
     border-radius: 5px;
     font-size: 1rem;
-    color: #34495e;
+    background-color: #34495e;
+    color: white;
     transition: box-shadow 0.3s;
 }
 
@@ -27,13 +28,13 @@
     border-color: #1abc9c;
 }
 
-.filter-select {
+.filter-select-dark {
     padding: 0.5rem 1rem;
-    border: 1px solid #bdc3c7;
+    border: 1px solid #1abc9c;
     border-radius: 5px;
     font-size: 1rem;
-    color: #34495e;
-    background-color: #ffffff;
+    background-color: #34495e;
+    color: white;
     transition: box-shadow 0.3s;
 }
 
