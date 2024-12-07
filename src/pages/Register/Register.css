@@ -12,7 +12,6 @@
     max-width: 400px;
     width: 100%;
     padding: 2rem;
-    padding-right: 3rem;
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     background-color: rgba(0, 31, 63, 0.85);
@@ -20,71 +19,80 @@
 
 /* Title styling */
 .register-title {
-    font-size: 3.5rem;
-    margin-top: 0;
-    margin-bottom: 2rem;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
     color: #1abc9c;
-    font-weight: bold;
     text-align: center;
 }
 
 /* Form label */
 .form-label {
     font-size: 1rem;
-    margin-bottom: 0.5rem;
-    display: block;
     color: #ffffff;
 }
 
-/* Form group styling */
-.form-group {
-    width: 100%;
-    margin-bottom: 1rem;
-}
-
-/* Input field styling */
+/* Input fields */
 .form-control {
     width: 100%;
     padding: 8px;
-    margin-bottom: 1rem;
-    border-radius: 0;
+    margin-top: 0.5rem;
     border: none;
-    background-color: transparent;
+    border-radius: 0;
     border-bottom: 1px solid #ffffff;
-    font-size: 1rem;
+    background: transparent;
     color: #ffffff;
+}
+
+/* Password wrapper */
+.password-wrapper {
+    position: relative;
+}
+
+.password-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #ffffff;
+    font-size: 1.2rem;
+}
+
+.password-toggle:hover {
+    color: #1abc9c;
 }
 
 /* Button styling */
 .register-button {
     width: 100%;
-    margin-top: 2rem;
     padding: 10px;
     background-color: #1abc9c;
-    color: #fff;
+    color: #ffffff;
     border: none;
     border-radius: 5px;
     font-weight: bold;
+    margin-top: 1.5rem;
     cursor: pointer;
-    transition: background 0.3s ease;
 }
 
 .register-button:hover {
     background-color: #16a085;
 }
 
-/* Error message styling */
+/* Error message */
 .error-message {
     color: #ff4d4d;
     text-align: center;
     margin-bottom: 1rem;
 }
 
-/* Footer link styling */
+/* Footer */
 .register-footer {
     text-align: center;
     margin-top: 1rem;
-    color: white;
+    color: #ffffff;
 }
 
 .register-footer a {

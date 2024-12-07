@@ -1,97 +1,127 @@
 /* Overall container */
 .login-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background: linear-gradient(135deg, #001f3f, #1abc9c);
-    color: #ffffff;
-    font-family: 'Arial', sans-serif;
-  }
-  
-  /* Card-like container */
-  .login-card {
-    text-align: center;
-    padding: 2rem;
-    padding-right: 3rem;
-    background: rgba(0, 31, 63, 0.85);
-    border-radius: 10px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-    width: 70%;
-    max-width: 400px;
-  }
-  
-  /* Title styling */
-  .login-title {
-    font-size: 3.5rem;
-    margin-top: 0;
-    margin-bottom: 2rem;
-    color: #1abc9c;
-    font-weight: bold;
-  }
-  
-  /* Error message styling */
-  .error-message {
-    color: #e74c3c;
-    font-size: 1rem;
-    margin-bottom: 1rem;
-  }
-  
-  /* Form group styling */
-  .form-group {
-    width: 80%;
-    margin-bottom: 1rem;
-    margin-inline: auto;
-    text-align: left;
-  }
-  
-  /* Form control styling */
-  .form-control {
-    border-radius: 5px;
-    padding: 8px;
-    width: 100%;
-    border: none;
-    background-color: transparent;
-    border-bottom: 1px solid #ffffff;
-    font-size: 1rem;
-    color: #ffffff;
-  }
-  
-  .form-control:focus {
-    outline: none;
-    border-bottom: 1px solid #ffffff;
-  }
-  
-  
-  /* Button styling */
-  .login-button {
-    width: 100%;
-    margin-top: 2rem;
-    padding: 10px;
-    background-color: #1abc9c;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background 0.3s ease;
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #001f3f, #1abc9c);
+  color: #ffffff;
+  font-family: 'Arial', sans-serif;
+}
 
-  .login-button:hover {
-      background-color: #16a085;
-  }
-  
-  /* Footer styling */
-  .login-footer {
-    margin-top: 1rem;
-  }
-  
-  .login-footer a {
-    color: #1abc9c;
-    text-decoration: none;
-  }
-  
-  .login-footer a:hover {
-    text-decoration: underline;
-  }
-  
+/* Card-like container */
+.login-card {
+  text-align: center;
+  padding: 2rem;
+  padding-right: 3rem;
+  background: rgba(0, 31, 63, 0.85);
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  width: 70%;
+  max-width: 400px;
+}
+
+/* Title styling */
+.login-title {
+  font-size: 3.5rem;
+  margin-top: 0;
+  margin-bottom: 2rem;
+  color: #1abc9c;
+  font-weight: bold;
+}
+
+/* Error message styling */
+.error-message {
+  color: #e74c3c;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+/* Form group styling */
+.form-group {
+  width: 80%;
+  margin-bottom: 1rem;
+  margin-inline: auto;
+  text-align: left;
+}
+
+/* Password wrapper */
+.password-wrapper {
+  display: flex;
+  align-items: center;
+  position: relative;
+  margin-right: -1rem;
+}
+
+/* Form control styling */
+.form-control {
+  border-radius: 5px;
+  padding: 8px;
+  width: 100%;
+  border: none;
+  background-color: transparent;
+  border-bottom: 1px solid #ffffff;
+  font-size: 1rem;
+  color: #ffffff;
+}
+
+.form-control:focus {
+  outline: none;
+  border-bottom: 1px solid #1abc9c;
+}
+
+/* Password toggle button */
+.password-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  right: 10px;
+  color: #ffffff;
+  font-size: 1.2rem;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+
+.password-toggle:hover {
+  color: #1abc9c;
+}
+
+/* Font Awesome Icon Size Adjustment */
+.password-toggle i {
+  font-size: 1rem;
+  padding-bottom: 0.2rem;
+}
+
+/* Button styling */
+.login-button {
+  width: 100%;
+  margin-top: 2rem;
+  padding: 10px;
+  background-color: #1abc9c;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.login-button:hover {
+  background-color: #16a085;
+}
+
+/* Footer styling */
+.login-footer {
+  margin-top: 1rem;
+}
+
+.login-footer a {
+  color: #1abc9c;
+  text-decoration: none;
+}
+
+.login-footer a:hover {
+  text-decoration: underline;
+}
