@@ -1,6 +1,16 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
-const Moderation: React.FC = () => {
+type ComponentProps = {
+    themeProvided: string;
+};
+
+const Moderation: React.FC<ComponentProps> = ({ themeProvided }) => {
+    const [theme, setTheme] = useState<string>(themeProvided);
+    
+    useEffect(() => {
+        setTheme(themeProvided);
+    }, [themeProvided]);
+
     return (
         <div>
             <h1>Content Moderation</h1>

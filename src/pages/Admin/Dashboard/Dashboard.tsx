@@ -1,6 +1,16 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
-const Dashboard: React.FC = () => {
+type ComponentProps = {
+  themeProvided: string;
+};
+
+const Dashboard: React.FC<ComponentProps> = ({ themeProvided }) => {
+  const [theme, setTheme] = useState<string>(themeProvided);
+    
+  useEffect(() => {
+    setTheme(themeProvided);
+  }, [themeProvided]);
+
   return (
     <div>
       <h1>Dashboard</h1>

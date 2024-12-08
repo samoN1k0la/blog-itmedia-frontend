@@ -87,7 +87,8 @@
 }
 
 .account-info-left-light {
-    font-size: 1.4rem;
+    font-size: 1.6rem;
+    letter-spacing: 0.1rem;
     font-weight: bolder;
     color: #2c3e50;
 }
@@ -110,9 +111,13 @@
     position: relative;
     cursor: pointer;
     user-select: none;
-    border-left: 1px solid #2c3e50;
+    border-left: 1px solid lightgray;
     background-color: #fcfafa;
     color: #2c3e50;
+}
+
+.account-info-right-light:hover {
+    background-color: #1abc9c31;
 }
 
 .account-info-right-dark {
@@ -130,6 +135,10 @@
     color: white;
 }
 
+.account-info-right-dark:hover {
+    background-color: #1abc9c71;
+}
+
 .profile-picture {
     width: 40px;
     height: 40px;
@@ -139,7 +148,21 @@
 }
 
 /* Dropdown Menu */
-.dropdown-menu {
+.dropdown-menu-light {
+    position: absolute;
+    top: 76px;
+    right: 0;
+    width: 219px;
+    background-color: white;
+    border-radius: 0 0 0 8px;
+    border-top: 1.2px solid lightgray;
+    box-shadow: 0 6px 15px #1abc9c2c;
+    overflow: hidden;
+    z-index: 1000;
+    animation: fadeIn 0.2s ease-in-out;
+}
+
+.dropdown-menu-dark {
     position: absolute;
     top: 76px;
     right: 0;
@@ -147,7 +170,7 @@
     background-color: #34495f;
     border-radius: 0 0 0 8px;
     border-top: 1px solid #1abc9c;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 6px 15px #1abc9c2c;
     overflow: hidden;
     z-index: 1000;
     animation: fadeIn 0.2s ease-in-out;
@@ -162,22 +185,40 @@
     }
 }
 
-.dropdown-item {
+.dropdown-item-dark {
     padding: 1rem 1.5rem;
-    color: white;
+    color: rgb(241, 241, 241);
     font-size: 1rem;
     text-align: left;
     transition: background-color 0.3s, color 0.3s;
     cursor: pointer;
 }
 
-.dropdown-item:hover {
-    background-color: #1abc9c;
-    color: white;
+.dropdown-item-light {
+    padding: 1rem 1.5rem;
+    color: #2c3e50;
+    font-size: 1rem;
+    text-align: left;
+    transition: background-color 0.3s, color 0.3s;
+    cursor: pointer;
 }
 
-.dropdown-item:not(:last-child) {
+.dropdown-item-dark:hover {
+    background-color: #1abc9c;
+    color: rgb(241, 241, 241);
+}
+
+.dropdown-item-light:hover {
+    background-color: #1abc9c2c;
+    color: #2c3e50;
+}
+
+.dropdown-item-dark:not(:last-child) {
     border-bottom: 1px solid #3f576e;
+}
+
+.dropdown-item-light:not(:last-child) {
+    border-bottom: 1px solid lightgray;
 }
 
 /* Content Area */
@@ -234,7 +275,7 @@
   /* Modal Window */
   .modal {
     background-color: #ffffff;
-    border-radius: 10px;
+    border-radius: 32px 32px 10px 10px;
     width: 600px;
     max-width: 90%;
     padding: 2rem;
@@ -249,19 +290,25 @@
     align-items: center;
     border-bottom: 1px solid #bdc3c7;
     padding-bottom: 1rem;
+    padding-top: 1rem;
+    padding-inline: 2rem;
     margin-bottom: 1rem;
+    margin-inline: -2rem;
+    margin-top: -2rem;
+    border-radius: 12px 12px 0 0;
+    background-color: #253544;
   }
   
   .modal-header h2 {
     font-size: 1.5rem;
-    color: #2c3e50;
+    color: white;
   }
   
   .close-button {
     background: none;
     border: none;
-    font-size: 1.5rem;
-    color: #e74c3c;
+    font-size: 2rem;
+    color: #ffffff;
     cursor: pointer;
   }
   
@@ -289,7 +336,28 @@
     border-radius: 5px;
     margin-top: 0.5rem;
   }
-  
+
+  .theme-switcher {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid lightgray;
+  }
+
+  .theme-switcher input {
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+  }
+
+  .theme-switcher span {
+    font-size: 1rem;
+    color: #2c3e50;
+  }
+
   .save-button {
     background-color: #1abc9c;
     color: white;

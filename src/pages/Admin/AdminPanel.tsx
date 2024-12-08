@@ -15,21 +15,22 @@ interface AdminPanelProps {
 const AdminPanel: React.FC<AdminPanelProps> = ({ defaultSection = "Dashboard" }) => {
   const [selectedSection, setSelectedSection] = useState<string>(defaultSection);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [showAccountSettings, setShowAccountSettings] = useState(false);
+  const [showSettings, setShowSettings] = useState(false);
+  const [ theme, setTheme ] = useState<string>('dark');
   const dropdownRef = useRef<HTMLDivElement>(null);
   const modalRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
 
-  const renderContent = () => {
+  const renderContent = (theme: string) => {
     switch (selectedSection) {
       case "Dashboard":
-        return <Dashboard />;
+        return <Dashboard themeProvided={theme} />;
       case "Authors":
-        return <Users />;
+        return <Users themeProvided={theme} />;
       case "Moderation":
-        return <Moderation />;
+        return <Moderation themeProvided={theme} />;
       case "Reports":
-        return <Reports />;
+        return <Reports themeProvided={theme} />;
       default:
         return <div><h1>Welcome</h1><p>Select a section from the sidebar.</p></div>;
     }
@@ -41,8 +42,8 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ defaultSection = "Dashboard" })
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setDropdownOpen(false);
       }
-      if (showAccountSettings && modalRef.current && !modalRef.current.contains(event.target as Node)) {
-        setShowAccountSettings(false);
+      if (showSettings && modalRef.current && !modalRef.current.contains(event.target as Node)) {
+        setShowSettings(false);
       }
     };
 
@@ -50,20 +51,24 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ defaultSection = "Dashboard" })
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [showAccountSettings]);
+  }, [showSettings]);
 
   const handleLogout = () => {
     localStorage.removeItem("jwt");
     navigate("/");
   };
 
-  const openAccountSettings = () => {
-    setDropdownOpen(false); // Close the dropdown
-    setShowAccountSettings(true); // Open the modal
+  const toggleTheme = () => {
+    setTheme(theme === 'dark' ? 'light' : 'dark');
   };
 
-  const closeAccountSettings = () => {
-    setShowAccountSettings(false);
+  const openSettings = () => {
+    setDropdownOpen(false); // Close the dropdown
+    setShowSettings(true); // Open the modal
+  };
+
+  const closeSettings = () => {
+    setShowSettings(false);
   };
 
   return (
@@ -94,10 +99,10 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ defaultSection = "Dashboard" })
       {/* Main Content */}
       <div className="main-content">
         {/* Account Info */}
-        <header className="account-info-dark">
-          <div className="account-info-left-dark">ADMIN PANEL</div>
+        <header className={theme === 'dark' ? "account-info-dark" : "account-info-light" }>
+          <div className={theme === 'dark' ? "account-info-left-dark" : "account-info-left-light"}>ADMIN PANEL</div>
           <div
-            className="account-info-right-dark"
+            className={theme === 'dark' ? "account-info-right-dark" : "account-info-right-light"}
             onClick={() => setDropdownOpen(!dropdownOpen)}
             ref={dropdownRef}
           >
@@ -108,11 +113,11 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ defaultSection = "Dashboard" })
               className="profile-picture"
             />
             {dropdownOpen && (
-              <div className="dropdown-menu">
-                <div className="dropdown-item" onClick={openAccountSettings}>
-                  Account Settings
+              <div className={theme === 'dark' ? "dropdown-menu-dark" : "dropdown-menu-light"}>
+                <div className={theme === 'dark' ? "dropdown-item-dark" : "dropdown-item-light"} onClick={openSettings}>
+                  Settings
                 </div>
-                <div className="dropdown-item" onClick={handleLogout}>
+                <div className={theme === 'dark' ? "dropdown-item-dark" : "dropdown-item-light"} onClick={handleLogout}>
                   Log Out
                 </div>
               </div>
@@ -121,19 +126,27 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ defaultSection = "Dashboard" })
         </header>
 
         {/* Dynamic Content */}
-        <div className="content-area-dark">{renderContent()}</div>
+        <div className={theme === 'dark' ? "content-area-dark" : "content-area-light"}>{renderContent(theme)}</div>
 
         {/* Account Settings Modal */}
-        {showAccountSettings && (
+        {showSettings && (
           <div className="modal-backdrop">
             <div className="modal" ref={modalRef}>
               <div className="modal-header">
-                <h2>Account Settings</h2>
-                <button className="close-button" onClick={closeAccountSettings}>
+                <h2>Settings</h2>
+                <button className="close-button" onClick={closeSettings}>
                   &times;
                 </button>
               </div>
               <div className="modal-body">
+                <div className="theme-switcher">
+                    <input
+                        type="checkbox"
+                        checked={theme === "dark"}
+                        onChange={toggleTheme}
+                    />
+                    <span>Dark Mode</span>
+                </div>
                 <label>
                   Username:
                   <input type="text" placeholder="John Doe" />

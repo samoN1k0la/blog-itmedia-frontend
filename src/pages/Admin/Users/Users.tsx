@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Users.css";
 
 interface Author {
@@ -7,7 +7,12 @@ interface Author {
     status: string;
 }
 
-const Users: React.FC = () => {
+type ComponentProps = {
+    themeProvided: string;
+  };
+
+const Users: React.FC<ComponentProps> = ({ themeProvided }) => {
+    const [theme, setTheme] = useState<string>(themeProvided);
     const [searchTerm, setSearchTerm] = useState("");
     const [statusFilter, setStatusFilter] = useState("All");
     const [authors, setAuthors] = useState<Author[]>([
@@ -48,6 +53,10 @@ const Users: React.FC = () => {
         return matchesSearch && matchesFilter;
     });
 
+    useEffect(() => {
+        setTheme(themeProvided);
+    }, [themeProvided]);
+
     return (
         <div className="user-management">
             <h1>User Management</h1>
@@ -60,12 +69,12 @@ const Users: React.FC = () => {
                     placeholder="Search by name..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="search-input-dark"
+                    className={theme === "dark" ? "search-input-dark" : "search-input-light"}
                 />
                 <select
                     value={statusFilter}
                     onChange={(e) => setStatusFilter(e.target.value)}
-                    className="filter-select-dark"
+                    className={theme === "dark" ? "filter-select-dark" : "filter-select-light"}
                 >
                     <option value="All">All Statuses</option>
                     <option value="Active">Active</option>
@@ -74,7 +83,7 @@ const Users: React.FC = () => {
             </div>
 
             {/* Authors Table */}
-            <table className="user-table">
+            <table className={theme === "dark" ? "user-table-dark" : "user-table-light"}>
                 <thead>
                     <tr>
                         <th onClick={() => handleSort("name")}>
