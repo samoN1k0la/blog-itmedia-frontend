@@ -16,7 +16,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ defaultSection = "Dashboard" })
   const [selectedSection, setSelectedSection] = useState<string>(defaultSection);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
-  const [ theme, setTheme ] = useState<string>('dark');
+  const [ theme, setTheme ] = useState<string>('light');
   const dropdownRef = useRef<HTMLDivElement>(null);
   const modalRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
@@ -25,7 +25,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ defaultSection = "Dashboard" })
     switch (selectedSection) {
       case "Dashboard":
         return <Dashboard themeProvided={theme} />;
-      case "Authors":
+      case "Users":
         return <Users themeProvided={theme} />;
       case "Moderation":
         return <Moderation themeProvided={theme} />;
@@ -80,7 +80,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ defaultSection = "Dashboard" })
         </div>
         <nav className="sidebar-menu">
           <ul>
-            {["Dashboard", "Authors", "Moderation", "Reports"].map((item) => (
+            {["Dashboard", "Users", "Moderation", "Reports"].map((item) => (
               <li
                 key={item}
                 className={selectedSection === item ? "active" : ""}

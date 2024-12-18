@@ -31,10 +31,10 @@ const App: React.FC = () => {
             </ProtectedRoute>}
         />
         <Route
-          path="/admin/authors"
+          path="/admin/users"
           element={
             <ProtectedRoute allowedRoles={['admin']}>
-              <AdminPanel defaultSection='Authors'/>
+              <AdminPanel defaultSection='Users'/>
             </ProtectedRoute>
           }
         />

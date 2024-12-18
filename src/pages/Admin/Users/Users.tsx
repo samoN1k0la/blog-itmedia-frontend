@@ -1,61 +1,85 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import "./Users.css";
 
 interface Author {
-    name: string;
-    posts: number;
-    status: string;
+    id: number;
+    username: string;
+    email: string;
+    createdAt: string;
+    role: string;
 }
 
 type ComponentProps = {
     themeProvided: string;
-  };
+};
 
 const Users: React.FC<ComponentProps> = ({ themeProvided }) => {
     const [theme, setTheme] = useState<string>(themeProvided);
     const [searchTerm, setSearchTerm] = useState("");
     const [statusFilter, setStatusFilter] = useState("All");
-    const [authors, setAuthors] = useState<Author[]>([
-        { name: "Nikola Lukić", posts: 10, status: "Active" },
-        { name: "Maja Petrović", posts: 5, status: "Suspended" },
-        { name: "Aleksandar Marković", posts: 20, status: "Active" },
-        { name: "Ivana Savić", posts: 15, status: "Suspended" },
-        { name: "Jovan Ilić", posts: 8, status: "Active" },
-        { name: "Marija Kostić", posts: 25, status: "Active" },
-        { name: "Stefan Nikolić", posts: 12, status: "Suspended" },
-        { name: "Ana Stojanović", posts: 30, status: "Active" },
-        { name: "Vuk Račić", posts: 3, status: "Suspended" },
-        { name: "Teodora Babić", posts: 18, status: "Active" },
-    ]);    
-    const [sortConfig, setSortConfig] = useState<{ key: keyof Author; direction: string } | null>(null);
+    const [authors, setAuthors] = useState<Author[]>([]);
+    const [currentPage, setCurrentPage] = useState<number>(1);
+    const [totalUsers, setTotalUsers] = useState<number>(0);
+    const [limit] = useState<number>(3); // Number of users per page
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
-    const handleSort = (key: keyof Author) => {
-        let direction = "ascending";
-        if (sortConfig && sortConfig.key === key && sortConfig.direction === "ascending") {
-            direction = "descending";
+    const fetchAuthors = async (page: number) => {
+        setIsLoading(true);
+        const token = localStorage.getItem("jwt"); // Retrieve the JWT token from localStorage
+        if (!token) {
+            console.error("JWT token not found in localStorage.");
+            alert("You are not authorized. Please log in.");
+            window.location.href = "/login"; // Redirect to login if no token
+            return;
         }
-        const sortedAuthors = [...authors].sort((a, b) => {
-            if (a[key] < b[key]) {
-                return direction === "ascending" ? -1 : 1;
+    
+        try {
+            const usersBackendRoute = `${process.env.REACT_APP_BACKEND_URL}/users`
+            const response = await axios.get(usersBackendRoute, {
+                params: { page, limit }, // Pass page and limit as query parameters
+                headers: {
+                    Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+                },
+            });
+    
+            setAuthors(response.data.users);
+            setTotalUsers(response.data.total); // Total number of users from the backend
+        } catch (error: any) {
+            if (error.response) {
+                // Handle specific HTTP errors
+                if (error.response.status === 401) {
+                    alert("Session expired. Please log in again.");
+                    window.location.href = "/login"; // Redirect to login if unauthorized
+                } else {
+                    console.error(`Error fetching users: ${error.response.data.message || error.message}`);
+                    alert(`Error: ${error.response.data.message || "Failed to fetch authors."}`);
+                }
+            } else {
+                console.error("Error fetching users:", error.message);
+                alert("An error occurred while fetching data. Please try again.");
             }
-            if (a[key] > b[key]) {
-                return direction === "ascending" ? 1 : -1;
-            }
-            return 0;
-        });
-        setAuthors(sortedAuthors);
-        setSortConfig({ key, direction });
+        } finally {
+            setIsLoading(false);
+        }
     };
+    
 
-    const filteredAuthors = authors.filter((author) => {
-        const matchesSearch = author.name.toLowerCase().includes(searchTerm.toLowerCase());
-        const matchesFilter = statusFilter === "All" || author.status === statusFilter;
-        return matchesSearch && matchesFilter;
-    });
+    const totalPages = Math.ceil(totalUsers / limit);
+
+    useEffect(() => {
+        fetchAuthors(currentPage);
+    }, [currentPage]);
 
     useEffect(() => {
         setTheme(themeProvided);
     }, [themeProvided]);
+
+    const filteredAuthors = authors.filter((author) => {
+        const matchesSearch = author.username.toLowerCase().includes(searchTerm.toLowerCase());
+        const matchesFilter = statusFilter === "All" || author.role === statusFilter.toLowerCase();
+        return matchesSearch && matchesFilter;
+    });
 
     return (
         <div className="user-management">
@@ -66,7 +90,7 @@ const Users: React.FC<ComponentProps> = ({ themeProvided }) => {
             <div className="filters">
                 <input
                     type="text"
-                    placeholder="Search by name..."
+                    placeholder="Search by username..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                     className={theme === "dark" ? "search-input-dark" : "search-input-light"}
@@ -76,45 +100,71 @@ const Users: React.FC<ComponentProps> = ({ themeProvided }) => {
                     onChange={(e) => setStatusFilter(e.target.value)}
                     className={theme === "dark" ? "filter-select-dark" : "filter-select-light"}
                 >
-                    <option value="All">All Statuses</option>
-                    <option value="Active">Active</option>
-                    <option value="Suspended">Suspended</option>
+                    <option value="All">All Roles</option>
+                    <option value="admin">Admin</option>
+                    <option value="author">Author</option>
                 </select>
             </div>
 
             {/* Authors Table */}
-            <table className={theme === "dark" ? "user-table-dark" : "user-table-light"}>
-                <thead>
-                    <tr>
-                        <th onClick={() => handleSort("name")}>
-                            Author Name {sortConfig?.key === "name" ? (sortConfig.direction === "ascending" ? "↑" : "↓") : ""}
-                        </th>
-                        <th onClick={() => handleSort("posts")}>
-                            Posts {sortConfig?.key === "posts" ? (sortConfig.direction === "ascending" ? "↑" : "↓") : ""}
-                        </th>
-                        <th onClick={() => handleSort("status")}>
-                            Status {sortConfig?.key === "status" ? (sortConfig.direction === "ascending" ? "↑" : "↓") : ""}
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {filteredAuthors.map((author, index) => (
-                        <tr key={index}>
-                            <td>{author.name}</td>
-                            <td>{author.posts}</td>
-                            <td
-                                className={
-                                    author.status === "Active"
-                                        ? "status-active"
-                                        : "status-suspended"
-                                }
-                            >
-                                {author.status}
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
+            {isLoading ? (
+                <p>Loading users...</p>
+            ) : (
+                <>
+                    <table className={theme === "dark" ? "user-table-dark" : "user-table-light"}>
+                        <thead>
+                            <tr>
+                                <th>Username</th>
+                                <th>Email</th>
+                                <th>Created At</th>
+                                <th>Role</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {filteredAuthors.length > 0 ? (
+                                filteredAuthors.map((author) => (
+                                    <tr key={author.id}>
+                                        <td>{author.username}</td>
+                                        <td>{author.email}</td>
+                                        <td>{new Date(author.createdAt).toLocaleDateString()}</td>
+                                        <td
+                                            className={
+                                                author.role === "admin"
+                                                    ? "status-admin"
+                                                    : "status-author"
+                                            }
+                                        >
+                                            {author.role}
+                                        </td>
+                                    </tr>
+                                ))
+                            ) : (
+                                <tr>
+                                    <td colSpan={4}>No users found.</td>
+                                </tr>
+                            )}
+                        </tbody>
+                    </table>
+                    {/* Pagination Controls */}
+                    <div className="pagination">
+                        <button
+                            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                            disabled={currentPage === 1}
+                        >
+                            Previous
+                        </button>
+                        <span>
+                            Page {currentPage} of {totalPages}
+                        </span>
+                        <button
+                            onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+                            disabled={currentPage === totalPages}
+                        >
+                            Next
+                        </button>
+                    </div>
+                </>
+            )}
         </div>
     );
 };
