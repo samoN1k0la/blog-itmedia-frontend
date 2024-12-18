@@ -22,7 +22,7 @@ const Login: React.FC = () => {
 
     if (!passwordRegex.test(password)) {
       setError(
-        'Password must be at least 8 characters long, contain one uppercase letter, one lowercase letter, and one number.'
+        'Invalid credentials'
       );
       return;
     }

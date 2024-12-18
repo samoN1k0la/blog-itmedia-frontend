@@ -48,7 +48,7 @@ const Register: React.FC = () => {
     };
 
     try {
-      const registerUrl = `${process.env.REACT_APP_BACKEND_URL}:${process.env.REACT_APP_BACKEND_PORT}/auth/signup`;
+      const registerUrl = `${process.env.REACT_APP_BACKEND_URL}/auth/signup`;
       const response = await axios.post(registerUrl, requestBody);
       alert("Registration successful! Redirecting to login...");
       console.log(response.data);

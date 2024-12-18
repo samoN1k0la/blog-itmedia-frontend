@@ -14,11 +14,28 @@ const App: React.FC = () => {
       <Route path="/" element={<ProtectedHome />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/author" element={<Navigate to="/author/dashboard" replace />} />
         <Route
-          path="/author"
+          path="/author/dashboard"
           element={
             <ProtectedRoute allowedRoles={['author']}>
-              <AuthorPanel />
+              <AuthorPanel defaultSection='Dashboard' />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/author/posts"
+          element={
+            <ProtectedRoute allowedRoles={['author']}>
+              <AuthorPanel defaultSection='Posts' />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/author/profile"
+          element={
+            <ProtectedRoute allowedRoles={['author']}>
+              <AuthorPanel defaultSection='Profile' />
             </ProtectedRoute>
           }
         />

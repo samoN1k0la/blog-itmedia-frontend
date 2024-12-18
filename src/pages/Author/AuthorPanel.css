@@ -1,54 +1,150 @@
-/* Overall container */
+/* General Layout */
 .author-panel-container {
     display: flex;
-    justify-content: center;
-    align-items: center;
     height: 100vh;
-    background: linear-gradient(135deg, #001f3f, #1abc9c);
-    color: #ffffff;
-    font-family: 'Arial', sans-serif;
+    font-family: Arial, sans-serif;
+    background-color: #f4f5f7;
 }
 
-/* Content box */
-.author-panel-content {
+/* Sidebar */
+.sidebar {
+    width: 250px;
+    background-color: #2d3436;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar-header {
+    padding: 1rem 0;
+    border-bottom: 1px solid #2d3436;
     text-align: center;
-    padding: 1.5rem;
-    background: rgba(0, 31, 63, 0.85);
-    border-radius: 10px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-    width: 70%;
-    max-width: 500px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    background-color: #1e272e;
 }
 
-/* Title styling */
-.author-panel-title {
-    font-size: 3.5rem;
-    margin-bottom: 1rem;
-    color: #1abc9c;
+.sidebar-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-menu li {
+    padding: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    font-size: 1rem;
+    text-align: center;
+}
+
+.sidebar-menu li:hover {
+    background-color: #37485c;
+}
+
+.sidebar-menu li.active {
+    background-color: #0984e3;
+    color: white;
     font-weight: bold;
 }
 
-/* Message styling */
-.author-panel-message {
-    font-size: 1.25rem;
-    margin-bottom: 1.5rem;
+/* Main Content */
+.main-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: #f9f9f9;
+    overflow-y: auto;
 }
 
-/* Button styling */
-.author-panel-button {
-    display: inline-block;
-    padding: 0.6rem 1.2rem;
-    font-size: 0.9rem;
+/* Account Info */
+.account-info-light {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: #ecf0f1;
+    border-bottom: 1px solid #bdc3c7;
+}
+
+.account-info-dark {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: #2d3436;
+    color: white;
+}
+
+.account-info-left {
+    font-size: 1.5rem;
     font-weight: bold;
-    color: #001f3f;
-    background: #1abc9c;
-    border: none;
+}
+
+.account-info-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    position: relative;
+    cursor: pointer;
+}
+
+/* Dropdown Menu */
+.dropdown-menu-light {
+    position: absolute;
+    top: 50px;
+    right: 0;
+    width: 200px;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 10;
     border-radius: 5px;
-    text-decoration: none;
-    transition: background 0.3s ease, transform 0.2s ease;
 }
 
-.author-panel-button:hover {
-    background: #008ba3;
-    transform: scale(1.05);
+.dropdown-menu-dark {
+    position: absolute;
+    top: 50px;
+    right: 0;
+    width: 200px;
+    background-color: #34495e;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    border-radius: 5px;
+}
+
+.dropdown-item {
+    padding: 1rem;
+    text-align: center;
+    cursor: pointer;
+}
+
+.dropdown-item:hover {
+    background-color: #0984e3;
+    color: white;
+}
+
+/* Content Area */
+.content-area-light {
+    padding: 2rem;
+    background-color: #f9f9f9;
+}
+
+.content-area-dark {
+    padding: 2rem;
+    background-color: #2d3436;
+    color: white;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 200px;
+    }
+    .sidebar-menu li {
+        font-size: 0.9rem;
+    }
+    .main-content {
+        padding: 1rem;
+    }
 }
