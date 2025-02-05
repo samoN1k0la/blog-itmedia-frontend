@@ -39,6 +39,14 @@ const App: React.FC = () => {
             </ProtectedRoute>
           }
         />
+        <Route
+          path="/author/create"
+          element={
+            <ProtectedRoute allowedRoles={['author']}>
+              <AuthorPanel defaultSection='Create' />
+            </ProtectedRoute>
+          }
+        />
         <Route path="/admin" element={<Navigate to="/admin/dashboard" replace />} />
         <Route 
           path="/admin/dashboard"

@@ -19,7 +19,6 @@
 .sidebar-header {
     padding: 1rem 0;
     border-bottom: 1px solid #2d3436;
-    text-align: center;
     font-size: 1.5rem;
     font-weight: bold;
     background-color: #1e272e;
@@ -33,10 +32,10 @@
 
 .sidebar-menu li {
     padding: 1rem;
+    padding-left: 2rem;
     cursor: pointer;
     transition: background-color 0.3s, color 0.3s;
-    font-size: 1rem;
-    text-align: center;
+    font-size: 1rem; 
 }
 
 .sidebar-menu li:hover {

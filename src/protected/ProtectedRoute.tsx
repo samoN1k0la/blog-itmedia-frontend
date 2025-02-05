@@ -31,6 +31,15 @@ export const getUsernameFromToken = (token: string): string | null => {
     }
 }
 
+export const getIdFromToken = (token: string): string | null => {
+    try {
+        const decodedToken: DecodedToken = jwtDecode(token);
+        return decodedToken.id;
+    } catch (error) {
+        return null;
+    }
+}
+
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ allowedRoles, children }) => {
     const token = localStorage.getItem('jwt');
