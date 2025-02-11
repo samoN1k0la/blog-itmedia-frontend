@@ -32,14 +32,6 @@ const App: React.FC = () => {
           }
         />
         <Route
-          path="/author/profile"
-          element={
-            <ProtectedRoute allowedRoles={['author']}>
-              <AuthorPanel defaultSection='Profile' />
-            </ProtectedRoute>
-          }
-        />
-        <Route
           path="/author/create"
           element={
             <ProtectedRoute allowedRoles={['author']}>

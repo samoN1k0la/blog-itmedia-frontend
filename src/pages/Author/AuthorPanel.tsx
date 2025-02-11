@@ -2,7 +2,6 @@ import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthorDashboard from "./Dashboard/AuthorDashboard";
 import AuthorPosts from "./Posts/AuthorPosts";
-import AuthorProfile from "./Profile/AuthorProfile";
 import CreatePost from "./CreatePost/CreatePost";
 import Logo from "../../assets/Logo.png";
 import "./AuthorPanel.css";
@@ -24,8 +23,6 @@ const AuthorPanel: React.FC<AuthorPanelProps> = ({ defaultSection = "Dashboard" 
         return <AuthorDashboard themeProvided={theme} />;
       case "Posts":
         return <AuthorPosts themeProvided={theme} />;
-      case "Profile":
-        return <AuthorProfile themeProvided={theme} />;
       case "Create":
         return <CreatePost themeProvided={theme} />;
       default:
@@ -69,7 +66,7 @@ const AuthorPanel: React.FC<AuthorPanelProps> = ({ defaultSection = "Dashboard" 
         </div>
         <nav className="sidebar-menu">
           <ul>
-            {["Dashboard", "Posts", "Profile", "Create"].map((item) => (
+            {["Dashboard", "Posts", "Create"].map((item) => (
               <li
                 key={item}
                 className={selectedSection === item ? "active" : ""}
