@@ -36,6 +36,10 @@ const AuthorPanel: React.FC<AuthorPanelProps> = ({ defaultSection = "Dashboard" 
   };
 
   useEffect(() => {
+    setSelectedSection(defaultSection);
+  }, [defaultSection]);
+
+  useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setDropdownOpen(false);

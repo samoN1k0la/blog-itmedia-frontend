@@ -105,7 +105,11 @@ const RichTextEditor = ({ onContentChange }: { onContentChange: (content: string
       )}
 
       {/* Editor */}
-      <EditorContent editor={editor} className="editor-content" />
+      <EditorContent 
+        editor={editor} 
+        className="editor-content" 
+        onClick={() => editor?.chain().focus().run()}
+      />
     </div>
   );
 };

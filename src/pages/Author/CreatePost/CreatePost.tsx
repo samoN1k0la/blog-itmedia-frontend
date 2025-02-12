@@ -30,6 +30,7 @@ const CreatePost = ({ themeProvided }: { themeProvided: string }) => {
           title,
           content: cleanHtml,
           author_id: getIdFromToken(token),
+          status: 'Draft'
         }, {
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
