@@ -12,7 +12,8 @@ interface Post {
   title: string;
   status: string;
   createdAt: string;
-  content: string; // HTML content of the blog post
+  content: string;
+  hero_url: string;
 }
 
 const AuthorPosts: React.FC<ComponentProps> = ({ themeProvided }) => {
@@ -197,6 +198,7 @@ const AuthorPosts: React.FC<ComponentProps> = ({ themeProvided }) => {
       {selectedPost && (
         <div className="modal-overlay" onClick={() => setSelectedPost(null)}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <img src={selectedPost.hero_url} alt="hero image" />
             <h2>{selectedPost.title}</h2>
             <p>
               <strong>Status:</strong> {selectedPost.status}

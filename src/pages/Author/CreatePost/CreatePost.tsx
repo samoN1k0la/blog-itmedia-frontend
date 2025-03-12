@@ -11,6 +11,9 @@ const CreatePost = ({ themeProvided }: { themeProvided: string }) => {
   const [title, setTitle] = useState('');
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+  const [heroImageFile, setHeroImageFile] = useState<File | null>(null);
+  const [heroUploading, setHeroUploading] = useState(false);
+  const [heroImageUrl, setHeroImageUrl] = useState('');
 
   const handleSave = async () => {
     if (!title.trim() || !content.trim()) {
@@ -30,7 +33,8 @@ const CreatePost = ({ themeProvided }: { themeProvided: string }) => {
           title,
           content: cleanHtml,
           author_id: getIdFromToken(token),
-          status: 'Draft'
+          status: 'Draft',
+          hero_url: heroImageUrl,
         }, {
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
@@ -50,6 +54,33 @@ const CreatePost = ({ themeProvided }: { themeProvided: string }) => {
     }
   };
 
+  const addHeroImage = async () => {
+    if (!heroImageFile) return;
+
+    try {
+      setHeroUploading(true);
+      const formData = new FormData();
+      formData.append('image', heroImageFile);
+
+      const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/posts/upload-image`, formData, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      });
+
+      if (!response.data.imageUrl) {
+        throw new Error('Invalid response from server');
+      }
+
+      setHeroImageUrl(response.data.imageUrl);
+      //editor.chain().focus().setImage({ src: response.data.imageUrl }).run();
+      setHeroImageFile(null); // Reset file input
+    } catch (error: any) {
+      console.error('Image upload failed:', error.response?.data || error.message);
+      alert('Image upload failed. Please try again.');
+    } finally {
+      setHeroUploading(false);
+    }
+  };
+
   return (
     <div className="create-post-container">
       <h2>Create a New Post</h2>
@@ -57,13 +88,21 @@ const CreatePost = ({ themeProvided }: { themeProvided: string }) => {
       {/* Message Display */}
       {message && <p className={`message ${message.type}`}>{message.text}</p>}
 
-      {/* Title Input */}
-      <input
-        className="title-input"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-        placeholder="Enter post title..."
-      />
+      <div className="crucial-info-container">
+        {/* Title Input */}
+        <input
+          className="title-input"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          placeholder="Enter post title..."
+        />
+
+        {/* Hero image */}
+        <div className="hero-input">
+          <input type="file" accept="image/*" onChange={(e) => setHeroImageFile(e.target.files?.[0] || null)} />
+          <button onClick={addHeroImage} disabled={!heroImageFile || heroUploading}>{heroUploading ? 'Uploading...' : '🖼️ Image'}</button> 
+        </div>
+      </div>
 
       {/* Rich Text Editor */}
       <RichTextEditor onContentChange={setContent} />
